@@ -1,27 +1,23 @@
-import torch
-import sklearn 
-import sqlalchemy
+import math
 
+# Given volume
+V = 100  # cubic kilometers
 
-from turtle import *
-def draw_squre(len):
-    for i in range(4):
-        forward(len)
-        right(90)
-def draw_grid(rows,coloumns,square_length):
-    for i in range(rows):
-        for j in range(coloumns):
-            draw_squre(square_length)
-            forward(square_length)
-        penup()
-        goto(0, -((i+1)*square_length))
-        pendown()
+# Step 1: Calculate the radius of the sphere
+r = (3 * V / (4 * math.pi))**(1/3)
+S_sphere = 4 * math.pi * r**2
+print("Площадь поверхности шара: ", S_sphere)
+print("Радиус сферы:", r)
 
-square_length = 50
-rows = 5
-coloumns  = 5
+# Step 2: Set a and b to 0.75 * r, calculate c
+a = b = 0.75 * r
+c = V / ((4 / 3) * math.pi * a**2)
+print("Сжатие элипсоида по x и y: ", a,b)
+print("Растижение элипсоида пор оси Z:", c)
 
-speed = 0 
-penup()
-goto(0)
-pendown()
+# Step 3: Calculate the surface area of the ellipsoid
+p = 1.6
+S_ellipsoid = 4 * math.pi * (
+    ((a * b)**p + (a * c)**p + (b * c)**p) / 3
+) ** (1 / p)
+print("Пощадь поверхности элипсоида:", S_ellipsoid)
